@@ -28,34 +28,35 @@ class ResultManager {
     }
 
     fun retrieveSong(
+        spotifyApiKey: String,
         artist : String,
         index : Int
     ): String {
-//        val token = ""
-//        val request = Request.Builder()
-//            .url("https://api.spotify.com/v1/search?q=artist:$artist&type=track&limit=3&access_token=$token")
-//            .method("GET", null)
-//            .build()
-//
-//        val response = okHttpClient.newCall(request).execute()
-//
-//        val responseString: String? = response.body?.string()
-//        if (!responseString.isNullOrEmpty() && response.isSuccessful) {
-//            val json = JSONObject(responseString)
-//            val tracks = json.getJSONObject("tracks")
-//            val items = tracks.getJSONArray("items")
-//            val item = items.getJSONObject(index)
-//            return item.getString("name")
-//        }
-//        else
+        val request = Request.Builder()
+            .url("https://api.spotify.com/v1/search?q=artist:$artist&type=track&limit=3&access_token=$spotifyApiKey")
+            .method("GET", null)
+            .build()
+
+        val response = okHttpClient.newCall(request).execute()
+
+        val responseString: String? = response.body?.string()
+        if (!responseString.isNullOrEmpty() && response.isSuccessful) {
+            val json = JSONObject(responseString)
+            val tracks = json.getJSONObject("tracks")
+            val items = tracks.getJSONArray("items")
+            val item = items.getJSONObject(index)
+            return item.getString("name")
+        }
+        else
             return "Song $index"
     }
 
     fun retrieveEvent(
-        apiKey: String
+        tmApiKey: String,
+        spotifyApiKey: String
     ): List<Result> {
         val request = Request.Builder()
-            .url("https://app.ticketmaster.com/discovery/v2/events?apikey=$apiKey&classificationName=Music&stateCode=DC&sort=date,asc\n")
+            .url("https://app.ticketmaster.com/discovery/v2/events?apikey=$tmApiKey&classificationName=Music&stateCode=DC&sort=date,asc\n")
             .method("GET", null)
             .build()
 
@@ -67,7 +68,7 @@ class ResultManager {
             val json = JSONObject(responseString)
             val embedded = json.getJSONObject("_embedded")
             val events = embedded.getJSONArray("events")
-            for(i in 0..19) {
+            for(i in 0..0) {
                 val event = events.getJSONObject(i)
                 val dates = event.getJSONObject("dates")
                 val start = dates.getJSONObject("start")
@@ -79,9 +80,9 @@ class ResultManager {
                         event = event.getString("name"),
                         artist = attraction.getString("name"),
                         date = start.getString("localDate"),
-                        song1 = "1. " + retrieveSong(attraction.getString("name"), 0),
-                        song2 = "2. " + retrieveSong(attraction.getString("name"), 1),
-                        song3 = "3. " + retrieveSong(attraction.getString("name"), 2)
+                        song1 = "1. " + retrieveSong(spotifyApiKey, attraction.getString("name"), 0),
+                        song2 = "2. " + retrieveSong(spotifyApiKey, attraction.getString("name"), 1),
+                        song3 = "3. " + retrieveSong(spotifyApiKey, attraction.getString("name"), 2)
                     )
                 )
             }
