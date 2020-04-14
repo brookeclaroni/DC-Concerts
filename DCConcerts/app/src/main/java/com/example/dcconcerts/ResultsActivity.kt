@@ -24,7 +24,7 @@ class ResultsActivity : AppCompatActivity() {
         doAsync {
             try {
                 val resultManager = ResultManager()
-                val results = resultManager.retrieveEvent(getString(R.string.tm_key))
+                val results = resultManager.retrieveEvent(getString(R.string.tm_key),getString(R.string.client_id),getString(R.string.client_secret))
                 if (results.isEmpty())
                 {
                     runOnUiThread {
