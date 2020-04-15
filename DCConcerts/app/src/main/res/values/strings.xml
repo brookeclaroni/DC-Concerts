@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">DC Concerts</string>
+    <string name="view_saved_concerts">Save Selections</string>
+    <string name="back">Back</string>
 </resources>

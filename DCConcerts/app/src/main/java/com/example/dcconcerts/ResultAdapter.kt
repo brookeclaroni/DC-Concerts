@@ -1,5 +1,8 @@
 package com.example.dcconcerts
 
+import android.app.Activity
+import android.content.Context
+import android.content.SharedPreferences
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,12 +27,19 @@ class ResultAdapter (val results: List<Result>) : RecyclerView.Adapter<ResultAda
             holder.song2.setText(currentResult.song2)
             holder.song3.setText(currentResult.song3)
 
+            if(currentResult.saved)
+                holder.starOff.visibility = View.GONE
+            else
+                holder.starOff.visibility = View.VISIBLE
+
             //star button functionality
             holder.starOff.setOnClickListener{
                 holder.starOff.visibility = View.GONE
+                currentResult.saved=true
             }
             holder.starOn.setOnClickListener{
                 holder.starOff.visibility = View.VISIBLE
+                currentResult.saved=false
             }
 
         }

@@ -166,7 +166,8 @@ class ResultManager {
                         date = start.getString("localDate"),
                         song1 = song1,
                         song2 = song2,
-                        song3 = song3
+                        song3 = song3,
+                        saved = false
                     )
                 )
             }
@@ -180,7 +181,8 @@ class ResultManager {
                 date = "",
                 song1 = null,
                 song2 = null,
-                song3 = null
+                song3 = null,
+                saved = false
             ))
     }
 }
