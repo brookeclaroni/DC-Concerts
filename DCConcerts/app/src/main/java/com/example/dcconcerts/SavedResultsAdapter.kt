@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import java.text.SimpleDateFormat
 
 class SavedResultsAdapter (val results: List<Result>) : RecyclerView.Adapter<SavedResultsAdapter.ViewHolder>(){
 
@@ -18,8 +19,15 @@ class SavedResultsAdapter (val results: List<Result>) : RecyclerView.Adapter<Sav
         val currentResult = results[position]
 
         holder.event.setText(currentResult.event)
-        holder.artist.setText(currentResult.artist)
-        holder.date.setText(currentResult.date)
+        holder.location.setText("\uD83D\uDCCD ${currentResult.location}")
+        holder.artist.setText("\uD83C\uDFB6 ${currentResult.artist}")
+
+        val sdf = SimpleDateFormat("yyyy-MM-dd")
+        val parsedDate = sdf.parse(currentResult.date)
+        val stringDate = parsedDate!!.toString()
+        holder.month.setText(stringDate.substring(4,7).toUpperCase())
+        holder.day.setText(stringDate.substring(8,10))
+
         holder.song1.setText(currentResult.song1)
         holder.song2.setText(currentResult.song2)
         holder.song3.setText(currentResult.song3)
@@ -48,8 +56,10 @@ class SavedResultsAdapter (val results: List<Result>) : RecyclerView.Adapter<Sav
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         val event: TextView = itemView.findViewById(R.id.event)
+        val location: TextView = itemView.findViewById(R.id.location)
         val artist: TextView = itemView.findViewById(R.id.artist)
-        val date: TextView = itemView.findViewById(R.id.date)
+        val month: TextView = itemView.findViewById(R.id.month)
+        val day: TextView = itemView.findViewById(R.id.day)
         val song1: TextView = itemView.findViewById(R.id.song1)
         val song2: TextView = itemView.findViewById(R.id.song2)
         val song3: TextView = itemView.findViewById(R.id.song3)

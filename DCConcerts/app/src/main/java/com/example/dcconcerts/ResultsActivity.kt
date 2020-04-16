@@ -68,8 +68,8 @@ class ResultsActivity : AppCompatActivity() {
         val button: Button = findViewById(R.id.viewSavedButton)
         button.setOnClickListener{
             val intent = Intent(this, SavedResultsActivity::class.java)
-            var savedConcerts:ArrayList<Result> = arrayListOf()
-            var savedConcertSet:MutableSet<String> = mutableSetOf()
+            val savedConcerts:ArrayList<Result> = arrayListOf()
+            val savedConcertSet:MutableSet<String> = mutableSetOf()
             savedConcertSet.add("Tops")
             results.forEach()
             {

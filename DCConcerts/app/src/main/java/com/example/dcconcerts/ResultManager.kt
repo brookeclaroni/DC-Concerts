@@ -140,6 +140,8 @@ class ResultManager {
                 val dates = event.getJSONObject("dates")
                 val start = dates.getJSONObject("start")
                 val embedded2 = event.getJSONObject("_embedded")
+                val venues = embedded2.getJSONArray("venues")
+                val venue = venues.getJSONObject(0)
                 val attractions = embedded2.getJSONArray("attractions")
                 val attraction = attractions.getJSONObject(0)
 
@@ -162,6 +164,7 @@ class ResultManager {
                 results.add(
                     Result(
                         event = event.getString("name"),
+                        location = venue.getString("name"),
                         artist = attraction.getString("name"),
                         date = start.getString("localDate"),
                         song1 = song1,
@@ -177,6 +180,7 @@ class ResultManager {
         else
             return listOf (Result(
                 event = "Error in retrieving events",
+                location = "",
                 artist = "",
                 date = "",
                 song1 = null,
