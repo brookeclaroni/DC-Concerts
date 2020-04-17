@@ -2,4 +2,14 @@
     <string name="app_name">DC Concerts</string>
     <string name="view_saved_concerts">Save Selections</string>
     <string name="back">Back</string>
+    <string name="star_on">Star on</string>
+    <string name="star_off">Star off</string>
+    <string name="calendar">Calendar</string>
+    <string name="go_to_link">Go to link</string>
+    <string name="login">Login</string>
+    <string name="sign_up">Sign up</string>
+    <string name="remember_me">Remember Me</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="repeat_password">Repeat password</string>
 </resources>

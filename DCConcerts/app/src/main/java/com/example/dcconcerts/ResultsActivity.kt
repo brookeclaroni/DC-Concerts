@@ -14,7 +14,7 @@ import org.jetbrains.anko.doAsync
 import androidx.core.app.ComponentActivity.ExtraData
 import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-
+import android.view.WindowManager
 
 
 class ResultsActivity : AppCompatActivity() {
@@ -31,6 +31,11 @@ class ResultsActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         var results : List<Result> = mutableListOf()
+
+        //line of code from https://stackoverflow.com/questions/36918219/how-to-disable-user-interaction-while-progressbar-is-visible-in-android?noredirect=1&lq=1
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
 
         doAsync {
             try {
@@ -62,6 +67,7 @@ class ResultsActivity : AppCompatActivity() {
             runOnUiThread {
                 val progBar : ProgressBar = findViewById(R.id.resultProgressBar)
                 progBar.setVisibility(View.GONE)
+                window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
             }
         }
 

@@ -2,7 +2,9 @@ package com.example.dcconcerts
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -52,6 +54,18 @@ class ResultAdapter (val results: List<Result>) : RecyclerView.Adapter<ResultAda
                 currentResult.saved=false
             }
 
+            holder.linkButton.setOnClickListener{
+                try {
+                    val urlIntent: Intent = Uri.parse(currentResult.link).let { webpage ->
+                        Intent(Intent.ACTION_VIEW, webpage)
+                    }
+                    it.getContext().startActivity(urlIntent)
+                }
+                catch(e: Exception) {
+                    e.printStackTrace()
+                }
+            }
+
         }
 
         override fun getItemCount(): Int {
@@ -70,5 +84,6 @@ class ResultAdapter (val results: List<Result>) : RecyclerView.Adapter<ResultAda
             val song3: TextView = itemView.findViewById(R.id.song3)
             val starOff: ImageButton = itemView.findViewById(R.id.starButtonOff)
             val starOn: ImageButton = itemView.findViewById(R.id.starButtonOn)
+            val linkButton: ImageButton = itemView.findViewById(R.id.linkButton)
         }
 }

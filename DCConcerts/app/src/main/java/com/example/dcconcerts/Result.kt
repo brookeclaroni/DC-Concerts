@@ -10,5 +10,6 @@ data class Result(
         val song1: String?,
         val song2: String?,
         val song3: String?,
-        var saved: Boolean
+        var saved: Boolean,
+        val link: String
 ): Serializable

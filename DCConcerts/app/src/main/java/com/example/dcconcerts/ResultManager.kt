@@ -28,7 +28,6 @@ class ResultManager {
         builder.writeTimeout(15, TimeUnit.SECONDS)
 
         okHttpClient = builder.build()
-
     }
 
     //code and comments adapted from lecture
@@ -170,7 +169,8 @@ class ResultManager {
                         song1 = song1,
                         song2 = song2,
                         song3 = song3,
-                        saved = false
+                        saved = false,
+                        link = event.getString("url")
                     )
                 )
             }
@@ -186,7 +186,8 @@ class ResultManager {
                 song1 = null,
                 song2 = null,
                 song3 = null,
-                saved = false
+                saved = false,
+                link = "https://www.google.com/"
             ))
     }
 }

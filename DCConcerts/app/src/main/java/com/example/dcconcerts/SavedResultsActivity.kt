@@ -1,5 +1,6 @@
 package com.example.dcconcerts
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -15,11 +16,15 @@ class SavedResultsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_saved_results)
 
+        val preferences = getSharedPreferences("dc-concerts", Context.MODE_PRIVATE)
+
         recyclerView = findViewById(R.id.savedRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
+        var results : List<Result> = mutableListOf()
+
         try {
-            val results = intent.getSerializableExtra("SAVED_CONCERTS") as List<Result>
+            results = intent.getSerializableExtra("SAVED_CONCERTS") as List<Result>
             //val results = listOf(Result("event", "artist","date","song1","song2","song3", true))
             if (results.isEmpty())
             {
@@ -36,6 +41,20 @@ class SavedResultsActivity : AppCompatActivity() {
         val button: Button = findViewById(R.id.backButton)
         button.setOnClickListener{
             val intent = Intent(this, ResultsActivity::class.java)
+            val savedConcertSet:MutableSet<String> = mutableSetOf()
+            savedConcertSet.add("Tops")
+            results.forEach()
+            {
+                if(it.saved)
+                {
+                    savedConcertSet.add(it.event)
+                }
+                else
+                {
+                    savedConcertSet.remove(it.event)
+                }
+            }
+            preferences.edit().putStringSet("SAVED_CONCERTS", savedConcertSet).apply()
             startActivity(intent)
         }
 
