@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Conciertos de DC</string>
+    <string name="app_name">Conciertos en DC</string>
     <string name="view_saved_concerts">Ver los conciertos guardados</string>
     <string name="back">Regresar</string>
     <string name="star_on">Estrella encendida</string>
     <string name="star_off">Estrella apagada</string>
     <string name="calendar">Calendario</string>
     <string name="go_to_link">Visitar el enlace</string>
-    <string name="login">Inicio Sesión</string>
-    <string name="sign_up">Crear una cuenta</string>
+    <string name="login">Iniciar Sesión</string>
+    <string name="sign_up">Crear cuenta nueva</string>
     <string name="remember_me">Recuérdame</string>
     <string name="email">Correo electrónico</string>
     <string name="password">Contraseña</string>
     <string name="repeat_password">Contraseña otra vez</string>
-    <string name="no_songs">No se encontraron canciones en Spotify.</string>
+    <string name="no_songs">No hay canciones en Spotify.</string>
     <string name="enter_email">Por favor introduzca un correo electrónico.</string>
     <string name="enter_pword">Por favor introduzca una contraseña.</string>
     <string name="reenter_pword">Por favor introduzca una contraseña ota vez.</string>
@@ -33,5 +33,5 @@
     <string name="unable_link">Error: no se puede abrir el enlace.</string>
     <string name="pin">📍</string>
     <string name="music_note">🎶</string>
-    <string name="log_out">Cerro</string>
+    <string name="log_out">Salir</string>
 </resources>

@@ -52,9 +52,6 @@ class ResultsActivity : AppCompatActivity() {
                 }
                 val set = preferences.getStringSet("SAVED_CONCERTS", setOf())
                 results.forEach{r ->
-                    if (r.song1 == null)
-                        r.song1 = getString(R.string.no_songs)
-
                     set?.forEach{s ->
                         if(r.event == s)
                             r.saved=true

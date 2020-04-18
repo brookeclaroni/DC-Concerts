@@ -86,32 +86,40 @@ class ResultManager {
         artist : String
     ): MutableList<String?> {
         val token = retrieveOAuthToken(clientID, clientSecret)
+        var maxNum = 3
+
         val request = Request.Builder()
-            .url("https://api.spotify.com/v1/search?q=artist:$artist&type=track&limit=3&access_token=$token")
+            .url("https://api.spotify.com/v1/search?q=artist:$artist&type=track&limit=$maxNum&access_token=$token")
             .method("GET", null)
             .build()
 
         val response = okHttpClient.newCall(request).execute()
+
+        val list: MutableList<String?> = mutableListOf()
 
         val responseString: String? = response.body?.string()
         if (!responseString.isNullOrEmpty() && response.isSuccessful) {
             val json = JSONObject(responseString)
             val tracks = json.getJSONObject("tracks")
             val total = tracks.getString("total")
-            if (total=="0"||total=="1"||total=="2")
+            val totalNum = total.toInt()
+
+            if (totalNum in 0..2)
             {
-                return mutableListOf()
+                maxNum = totalNum
             }
+
             val items = tracks.getJSONArray("items")
-            val list: MutableList<String?> = mutableListOf()
-            for(i in 0..2) {
+
+            for(i in 0 until maxNum) {
                 val item = items.getJSONObject(i)
                 list.add("${i+1}. ${item.getString("name")}")
             }
+
             return list
         }
         else
-            return mutableListOf()
+            return list
     }
 
     fun retrieveEvent(
@@ -143,30 +151,19 @@ class ResultManager {
                 val attraction = attractions.getJSONObject(0)
 
                 val songList = retrieveSongs(clientID, clientSecret, attraction.getString("name"))
-                var song1: String?
-                var song2: String?
-                var song3: String?
-                if (songList.size ==0)
+
+                for(i in songList.size until 3)
                 {
-                    song1 = null
-                    song2 = null
-                    song3 = null
+                    songList.add(null)
                 }
-                else
-                {
-                    song1 = songList[0]
-                    song2 = songList[1]
-                    song3 = songList[2]
-                }
+
                 results.add(
                     Result(
                         event = event.getString("name"),
                         location = venue.getString("name"),
                         artist = attraction.getString("name"),
                         date = start.getString("localDate"),
-                        song1 = song1,
-                        song2 = song2,
-                        song3 = song3,
+                        songList = songList,
                         saved = false,
                         link = event.getString("url")
                     )

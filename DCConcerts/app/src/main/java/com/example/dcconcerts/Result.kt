@@ -7,9 +7,7 @@ data class Result(
         val location: String,
         val artist: String,
         val date: String,
-        var song1: String?,
-        val song2: String?,
-        val song3: String?,
+        val songList: MutableList<String?>,
         var saved: Boolean,
         val link: String
 ): Serializable

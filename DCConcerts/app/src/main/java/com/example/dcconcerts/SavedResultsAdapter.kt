@@ -36,9 +36,12 @@ class SavedResultsAdapter (private val results: List<Result>) : RecyclerView.Ada
         holder.month.text=stringDate.substring(4,7).toUpperCase(Locale.ROOT)
         holder.day.text=stringDate.substring(8,10)
 
-        holder.song1.text=currentResult.song1
-        holder.song2.text=currentResult.song2
-        holder.song3.text=currentResult.song3
+        if(currentResult.songList[0] == null)
+            holder.song1.text = holder.song1.context.getString(R.string.no_songs)
+        else
+            holder.song1.text = currentResult.songList[0]
+        holder.song2.text = currentResult.songList[1]
+        holder.song3.text = currentResult.songList[2]
 
         if(currentResult.saved)
             holder.starOff.visibility = View.GONE
