@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Conciertos de DC</string>
+    <string name="view_saved_concerts">Ver los conciertos guardados</string>
+    <string name="back">Regresar</string>
+    <string name="star_on">Estrella encendida</string>
+    <string name="star_off">Estrella apagada</string>
+    <string name="calendar">Calendario</string>
+    <string name="go_to_link">Visitar el enlace</string>
+    <string name="login">Inicio Sesión</string>
+    <string name="sign_up">Crear una cuenta</string>
+    <string name="remember_me">Recuérdame</string>
+    <string name="email">Correo electrónico</string>
+    <string name="password">Contraseña</string>
+    <string name="repeat_password">Contraseña otra vez</string>
+    <string name="no_songs">No se encontraron canciones en Spotify.</string>
+    <string name="enter_email">Por favor introduzca un correo electrónico.</string>
+    <string name="enter_pword">Por favor introduzca una contraseña.</string>
+    <string name="reenter_pword">Por favor introduzca una contraseña ota vez.</string>
+    <string name="match_pword">Por favor coincida las dos contraseñas.</string>
+    <string name="created_user">Ha creado una cuenta:</string>
+    <string name="invalid_cred">Error: Credenciales no válidas.</string>
+    <string name="already_exists">Error: Ya existe una cuenta con este correo electrónico.</string>
+    <string name="network_error">Error: No se puede conectar a la red.</string>
+    <string name="signup_error">Error: No se pudo crear la cuenta.</string>
+    <string name="logged_in_user">Iniciado sesión como: </string>
+    <string name="not_exist">Error: No existe una cuenta con este correo electrónico.</string>
+    <string name="login_error">Error: No se pudo iniciar sesión.</string>
+    <string name="no_results">No hay resultados.</string>
+    <string name="unable_results">Error: No se puedan recuperar los resultados.</string>
+    <string name="no_saved">No se han guardado conciertos.</string>
+    <string name="unable_saved">Error: No se puedan recuperar los resultados guardados.</string>
+    <string name="unable_link">Error: no se puede abrir el enlace.</string>
+    <string name="pin">📍</string>
+    <string name="music_note">🎶</string>
+    <string name="log_out">Cerro</string>
+</resources>

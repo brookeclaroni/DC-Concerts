@@ -12,7 +12,7 @@
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="repeat_password">Re-enter password</string>
-    <string name="no_songs">No songs found on Spotify</string>
+    <string name="no_songs">No songs found on Spotify.</string>
     <string name="enter_email">Please enter an email.</string>
     <string name="enter_pword">Please enter a password.</string>
     <string name="reenter_pword">Please re-enter your password.</string>
