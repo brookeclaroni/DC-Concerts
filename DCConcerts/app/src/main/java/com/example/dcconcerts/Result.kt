@@ -7,7 +7,7 @@ data class Result(
         val location: String,
         val artist: String,
         val date: String,
-        val song1: String?,
+        var song1: String?,
         val song2: String?,
         val song3: String?,
         var saved: Boolean,

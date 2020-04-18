@@ -1,11 +1,9 @@
 package com.example.dcconcerts
 
 import android.util.Base64
-import android.provider.Settings.Global.getString
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.logging.HttpLoggingInterceptor
-import org.json.JSONArray
 import org.json.JSONObject
 import java.util.concurrent.TimeUnit
 import okhttp3.MediaType.Companion.toMediaType
@@ -150,7 +148,7 @@ class ResultManager {
                 var song3: String?
                 if (songList.size ==0)
                 {
-                    song1 = "No songs found on Spotify"
+                    song1 = null
                     song2 = null
                     song3 = null
                 }
@@ -178,16 +176,6 @@ class ResultManager {
             return results
         }
         else
-            return listOf (Result(
-                event = "Error in retrieving events",
-                location = "",
-                artist = "",
-                date = "",
-                song1 = null,
-                song2 = null,
-                song3 = null,
-                saved = false,
-                link = "https://www.google.com/"
-            ))
+            return listOf()
     }
 }

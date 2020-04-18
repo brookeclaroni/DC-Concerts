@@ -42,24 +42,24 @@ class SignUpActivity : AppCompatActivity() {
             val inputtedPassword: String = password.text.toString().trim()
             val inputtedPassword2: String = password2.text.toString().trim()
 
-            if(inputtedUsername == null || inputtedUsername == "")
+            if(inputtedUsername == "")
             {
-                Toast.makeText(this, "Please enter an email.",Toast.LENGTH_LONG).show()
+                Toast.makeText(this, getText(R.string.enter_email),Toast.LENGTH_LONG).show()
             }
-            else if (inputtedPassword == null || inputtedPassword == "")
+            else if (inputtedPassword == "")
             {
-                Toast.makeText(this, "Please enter a password.",Toast.LENGTH_LONG).show()
+                Toast.makeText(this, getText(R.string.enter_pword),Toast.LENGTH_LONG).show()
             }
-            else if (inputtedPassword2 == null || inputtedPassword2 == "")
+            else if (inputtedPassword2 == "")
             {
-                Toast.makeText(this, "Please re-enter your password.",Toast.LENGTH_LONG).show()
+                Toast.makeText(this, getText(R.string.reenter_pword),Toast.LENGTH_LONG).show()
             }
             else if (inputtedPassword != inputtedPassword2)
             {
-                Toast.makeText(this, "Please make passwords match.",Toast.LENGTH_LONG).show()
+                Toast.makeText(this, getText(R.string.match_pword),Toast.LENGTH_LONG).show()
             }
             else {
-                progBar.setVisibility(View.VISIBLE)
+                progBar.visibility=View.VISIBLE
                 window.setFlags(
                     WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                     WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
@@ -69,13 +69,13 @@ class SignUpActivity : AppCompatActivity() {
                             val user = firebaseAuth.currentUser
                             Toast.makeText(
                                 this,
-                                "Created user: ${user!!.email}",
+                                "${getText(R.string.created_user)} ${user!!.email}",
                                 Toast.LENGTH_SHORT
                             ).show()
                             val intent = Intent(this, ResultsActivity::class.java)
                             window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
                             startActivity(intent)
-                            progBar.setVisibility(View.GONE)
+                            progBar.visibility=View.GONE
                             window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
                         } else {
                             val exception = task.exception
@@ -84,37 +84,37 @@ class SignUpActivity : AppCompatActivity() {
                                 // or their password doesn’t meet minimum requirements
                                 Toast.makeText(
                                     this,
-                                    "Error: Invalid credentials.",
+                                    getText(R.string.invalid_cred),
                                     Toast.LENGTH_LONG
                                 ).show()
-                                progBar.setVisibility(View.GONE)
+                                progBar.visibility=View.GONE
                                 window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
                             } else if (exception is FirebaseAuthUserCollisionException) {
                                 // A user with this email already exists
                                 Toast.makeText(
                                     this,
-                                    "Error: An account with this email already exists.",
+                                    getText(R.string.already_exists),
                                     Toast.LENGTH_LONG
                                 ).show()
-                                progBar.setVisibility(View.GONE)
+                                progBar.visibility=View.GONE
                                 window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
                             } else if (exception is FirebaseNetworkException) {
                                 // A user with this email already exists
                                 Toast.makeText(
                                     this,
-                                    "Error: Unable to connect to network.",
+                                    getText(R.string.network_error),
                                     Toast.LENGTH_LONG
                                 ).show()
-                                progBar.setVisibility(View.GONE)
+                                progBar.visibility=View.GONE
                                 window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
                             } else {
                                 // Show generic error message
                                 Toast.makeText(
                                     this,
-                                    "Error: Failed to sign up user. $exception",
+                                    "${getText(R.string.signup_error)} $exception",
                                     Toast.LENGTH_LONG
                                 ).show()
-                                progBar.setVisibility(View.GONE)
+                                progBar.visibility=View.GONE
                                 window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
                             }
                         }

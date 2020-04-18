@@ -21,14 +21,13 @@ class SavedResultsActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.savedRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        var results : List<Result> = mutableListOf()
+        var results : List<Result> = listOf()
 
         try {
             results = intent.getSerializableExtra("SAVED_CONCERTS") as List<Result>
-            //val results = listOf(Result("event", "artist","date","song1","song2","song3", true))
             if (results.isEmpty())
             {
-                Toast.makeText(this, "There are no results.", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, getString(R.string.no_saved), Toast.LENGTH_LONG).show()
             }
             val adapter = SavedResultsAdapter(results)
 
@@ -36,13 +35,16 @@ class SavedResultsActivity : AppCompatActivity() {
 
         } catch(exception: Exception) {
             exception.printStackTrace()
+            if (results.isEmpty())
+            {
+                Toast.makeText(this, getString(R.string.unable_saved), Toast.LENGTH_LONG).show()
+            }
         }
 
         val button: Button = findViewById(R.id.backButton)
         button.setOnClickListener{
             val intent = Intent(this, ResultsActivity::class.java)
             val savedConcertSet:MutableSet<String> = mutableSetOf()
-            savedConcertSet.add("Tops")
             results.forEach()
             {
                 if(it.saved)

@@ -7,10 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import java.text.SimpleDateFormat
+import java.util.*
 
-class SavedResultsAdapter (val results: List<Result>) : RecyclerView.Adapter<SavedResultsAdapter.ViewHolder>(){
+class SavedResultsAdapter (private val results: List<Result>) : RecyclerView.Adapter<SavedResultsAdapter.ViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.row_result, parent, false)
@@ -20,19 +22,19 @@ class SavedResultsAdapter (val results: List<Result>) : RecyclerView.Adapter<Sav
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentResult = results[position]
 
-        holder.event.setText(currentResult.event)
-        holder.location.setText("\uD83D\uDCCD ${currentResult.location}")
-        holder.artist.setText("\uD83C\uDFB6 ${currentResult.artist}")
+        holder.event.text=currentResult.event
+        holder.location.text="${holder.location.context.getString(R.string.pin)} ${currentResult.location}"
+        holder.artist.text="${holder.location.context.getString(R.string.music_note)} ${currentResult.artist}"
 
-        val sdf = SimpleDateFormat("yyyy-MM-dd")
+        val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.US)
         val parsedDate = sdf.parse(currentResult.date)
         val stringDate = parsedDate!!.toString()
-        holder.month.setText(stringDate.substring(4,7).toUpperCase())
-        holder.day.setText(stringDate.substring(8,10))
+        holder.month.text=stringDate.substring(4,7).toUpperCase(Locale.ROOT)
+        holder.day.text=stringDate.substring(8,10)
 
-        holder.song1.setText(currentResult.song1)
-        holder.song2.setText(currentResult.song2)
-        holder.song3.setText(currentResult.song3)
+        holder.song1.text=currentResult.song1
+        holder.song2.text=currentResult.song2
+        holder.song3.text=currentResult.song3
 
         if(currentResult.saved)
             holder.starOff.visibility = View.GONE
@@ -54,13 +56,13 @@ class SavedResultsAdapter (val results: List<Result>) : RecyclerView.Adapter<Sav
                 val urlIntent: Intent = Uri.parse(currentResult.link).let { webpage ->
                     Intent(Intent.ACTION_VIEW, webpage)
                 }
-                it.getContext().startActivity(urlIntent)
+                it.context.startActivity(urlIntent)
             }
             catch(e: Exception) {
                 e.printStackTrace()
+                Toast.makeText( holder.linkButton.context, holder.linkButton.context.getString(R.string.unable_link), Toast.LENGTH_LONG).show()
             }
         }
-
     }
 
     override fun getItemCount(): Int {

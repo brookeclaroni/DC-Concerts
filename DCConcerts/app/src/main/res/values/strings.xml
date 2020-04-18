@@ -11,5 +11,25 @@
     <string name="remember_me">Remember Me</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
-    <string name="repeat_password">Repeat password</string>
+    <string name="repeat_password">Re-enter password</string>
+    <string name="no_songs">No songs found on Spotify</string>
+    <string name="enter_email">Please enter an email.</string>
+    <string name="enter_pword">Please enter a password.</string>
+    <string name="reenter_pword">Please re-enter your password.</string>
+    <string name="match_pword">Please make passwords match.</string>
+    <string name="created_user">Created user:</string>
+    <string name="invalid_cred">Error: Invalid credentials.</string>
+    <string name="already_exists">Error: An account with this email already exists.</string>
+    <string name="network_error">Error: Unable to connect to network.</string>
+    <string name="signup_error">Error: Failed to sign up user.</string>
+    <string name="logged_in_user">Logged in as user:</string>
+    <string name="not_exist">Error: An account with this email does not exists.</string>
+    <string name="login_error">Error: Failed to login user.</string>
+    <string name="no_results">There are no results.</string>
+    <string name="unable_results">Error: Unable to retrieve results.</string>
+    <string name="no_saved">No concerts have been saved.</string>
+    <string name="unable_saved">Error: Unable to retrieve saved concerts.</string>
+    <string name="unable_link">Error: Unable to open link.</string>
+    <string name="pin">📍</string>
+    <string name="music_note">🎶</string>
 </resources>

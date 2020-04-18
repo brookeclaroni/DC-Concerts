@@ -11,15 +11,13 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.LinearLayoutManager
 import android.widget.Toast
 import org.jetbrains.anko.doAsync
-import androidx.core.app.ComponentActivity.ExtraData
-import androidx.core.content.ContextCompat.getSystemService
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.view.WindowManager
 
 
 class ResultsActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
+    private lateinit var progBar : ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +28,9 @@ class ResultsActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.resultRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        var results : List<Result> = mutableListOf()
+        progBar = findViewById(R.id.resultProgressBar)
+
+        var results : List<Result> = listOf()
 
         window.setFlags(
             WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
@@ -43,12 +43,14 @@ class ResultsActivity : AppCompatActivity() {
                 if (results.isEmpty())
                 {
                     runOnUiThread {
-                        Toast.makeText(this@ResultsActivity, "There are no results.", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this@ResultsActivity, getString(R.string.no_results), Toast.LENGTH_LONG).show()
                     }
                 }
                 val set = preferences.getStringSet("SAVED_CONCERTS", null)
-                //val set = setOf("Tops")
                 results.forEach{r ->
+                    if (r.song1 == null)
+                        r.song1 = getString(R.string.no_songs)
+
                     set?.forEach{s ->
                         if(r.event == s)
                             r.saved=true
@@ -62,10 +64,12 @@ class ResultsActivity : AppCompatActivity() {
 
             } catch(exception: Exception) {
                 exception.printStackTrace()
+                runOnUiThread {
+                    Toast.makeText(this@ResultsActivity, getString(R.string.unable_results), Toast.LENGTH_LONG).show()
+                }
             }
             runOnUiThread {
-                val progBar : ProgressBar = findViewById(R.id.resultProgressBar)
-                progBar.setVisibility(View.GONE)
+                progBar.visibility=View.GONE
                 window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
             }
         }
@@ -75,7 +79,6 @@ class ResultsActivity : AppCompatActivity() {
             val intent = Intent(this, SavedResultsActivity::class.java)
             val savedConcerts:ArrayList<Result> = arrayListOf()
             val savedConcertSet:MutableSet<String> = mutableSetOf()
-            savedConcertSet.add("Tops")
             results.forEach()
             {
                 if(it.saved)
