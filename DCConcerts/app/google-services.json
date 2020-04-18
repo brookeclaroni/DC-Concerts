@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "47656541562",
+    "firebase_url": "https://dc-concerts.firebaseio.com",
+    "project_id": "dc-concerts",
+    "storage_bucket": "dc-concerts.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:47656541562:android:70a0fe91add78af4180ac3",
+        "android_client_info": {
+          "package_name": "com.example.dcconcerts"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "47656541562-p6mvmgao7jfev47f8h3a6mh80maaa943.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCsy6uvKwmuV9X3nwFGtlp_0FxnVdfc_Io"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "47656541562-p6mvmgao7jfev47f8h3a6mh80maaa943.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -32,7 +32,6 @@ class ResultsActivity : AppCompatActivity() {
 
         var results : List<Result> = mutableListOf()
 
-        //line of code from https://stackoverflow.com/questions/36918219/how-to-disable-user-interaction-while-progressbar-is-visible-in-android?noredirect=1&lq=1
         window.setFlags(
             WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
             WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
