@@ -147,6 +147,7 @@ class ResultManager {
 
                 val songList = retrieveSongs(clientID, clientSecret, attraction.getString("name"))
 
+                //make all list have a length of three so fill in the blanks with null
                 for(i in songList.size until 3)
                 {
                     songList.add(null)

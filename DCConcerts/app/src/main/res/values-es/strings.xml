@@ -18,20 +18,20 @@
     <string name="enter_pword">Por favor introduzca una contraseña.</string>
     <string name="reenter_pword">Por favor introduzca una contraseña ota vez.</string>
     <string name="match_pword">Por favor coincida las dos contraseñas.</string>
-    <string name="created_user">Ha creado una cuenta:</string>
+    <string name="created_user">Ha creado una cuenta: %1$s</string>
     <string name="invalid_cred">Error: Credenciales no válidas.</string>
     <string name="already_exists">Error: Ya existe una cuenta con este correo electrónico.</string>
     <string name="network_error">Error: No se puede conectar a la red.</string>
-    <string name="signup_error">Error: No se pudo crear la cuenta.</string>
-    <string name="logged_in_user">Iniciado sesión como: </string>
+    <string name="signup_error">Error: No se pudo crear la cuenta. %1$s</string>
+    <string name="logged_in_user">Iniciado sesión como: %1$s</string>
     <string name="not_exist">Error: No existe una cuenta con este correo electrónico.</string>
-    <string name="login_error">Error: No se pudo iniciar sesión.</string>
+    <string name="login_error">Error: No se pudo iniciar sesión. %1$s</string>
     <string name="no_results">No hay resultados.</string>
     <string name="unable_results">Error: No se puedan recuperar los resultados.</string>
     <string name="no_saved">No se han guardado conciertos.</string>
     <string name="unable_saved">Error: No se puedan recuperar los resultados guardados.</string>
     <string name="unable_link">Error: no se puede abrir el enlace.</string>
-    <string name="pin">📍</string>
-    <string name="music_note">🎶</string>
+    <string name="pin">📍 %1$s</string>
+    <string name="music_note">🎶 %1$s</string>
     <string name="log_out">Salir</string>
 </resources>
