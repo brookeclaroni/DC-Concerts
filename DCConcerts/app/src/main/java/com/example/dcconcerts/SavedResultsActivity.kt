@@ -1,6 +1,5 @@
 package com.example.dcconcerts
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -11,15 +10,18 @@ import androidx.recyclerview.widget.RecyclerView
 
 class SavedResultsActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
+    private lateinit var backButton: Button
+    private lateinit var logOutButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_saved_results)
 
-        val preferences = getSharedPreferences("dc-concerts", Context.MODE_PRIVATE)
-
         recyclerView = findViewById(R.id.savedRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
+
+        backButton = findViewById(R.id.backButton)
+        logOutButton = findViewById(R.id.logOutButton2)
 
         var results : List<Result> = listOf()
 
@@ -41,22 +43,13 @@ class SavedResultsActivity : AppCompatActivity() {
             }
         }
 
-        val button: Button = findViewById(R.id.backButton)
-        button.setOnClickListener{
+        backButton.setOnClickListener{
             val intent = Intent(this, ResultsActivity::class.java)
-            val savedConcertSet:MutableSet<String> = mutableSetOf()
-            results.forEach()
-            {
-                if(it.saved)
-                {
-                    savedConcertSet.add(it.event)
-                }
-                else
-                {
-                    savedConcertSet.remove(it.event)
-                }
-            }
-            preferences.edit().putStringSet("SAVED_CONCERTS", savedConcertSet).apply()
+            startActivity(intent)
+        }
+
+        logOutButton.setOnClickListener{
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
 

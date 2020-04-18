@@ -18,6 +18,8 @@ class ResultsActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var progBar : ProgressBar
+    private lateinit var saveButton: Button
+    private lateinit var logOutButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +31,8 @@ class ResultsActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         progBar = findViewById(R.id.resultProgressBar)
+        saveButton = findViewById(R.id.viewSavedButton)
+        logOutButton = findViewById(R.id.logOutButton)
 
         var results : List<Result> = listOf()
 
@@ -46,7 +50,7 @@ class ResultsActivity : AppCompatActivity() {
                         Toast.makeText(this@ResultsActivity, getString(R.string.no_results), Toast.LENGTH_LONG).show()
                     }
                 }
-                val set = preferences.getStringSet("SAVED_CONCERTS", null)
+                val set = preferences.getStringSet("SAVED_CONCERTS", setOf())
                 results.forEach{r ->
                     if (r.song1 == null)
                         r.song1 = getString(R.string.no_songs)
@@ -74,8 +78,7 @@ class ResultsActivity : AppCompatActivity() {
             }
         }
 
-        val button: Button = findViewById(R.id.viewSavedButton)
-        button.setOnClickListener{
+        saveButton.setOnClickListener{
             val intent = Intent(this, SavedResultsActivity::class.java)
             val savedConcerts:ArrayList<Result> = arrayListOf()
             val savedConcertSet:MutableSet<String> = mutableSetOf()
@@ -91,8 +94,12 @@ class ResultsActivity : AppCompatActivity() {
                     savedConcertSet.remove(it.event)
                 }
             }
-            preferences.edit().putStringSet("SAVED_CONCERTS", savedConcertSet).apply()
             intent.putExtra("SAVED_CONCERTS", savedConcerts)
+            startActivity(intent)
+        }
+
+        logOutButton.setOnClickListener{
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
     }

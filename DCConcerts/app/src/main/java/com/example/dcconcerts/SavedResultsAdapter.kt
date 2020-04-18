@@ -1,5 +1,6 @@
 package com.example.dcconcerts
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.view.LayoutInflater
@@ -20,6 +21,9 @@ class SavedResultsAdapter (private val results: List<Result>) : RecyclerView.Ada
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val preferences = holder.event.context.getSharedPreferences("dc-concerts", Context.MODE_PRIVATE)
+        val savedConcertSet = preferences.getStringSet("SAVED_CONCERTS", setOf())
+
         val currentResult = results[position]
 
         holder.event.text=currentResult.event
@@ -45,10 +49,14 @@ class SavedResultsAdapter (private val results: List<Result>) : RecyclerView.Ada
         holder.starOff.setOnClickListener{
             holder.starOff.visibility = View.GONE
             currentResult.saved=true
+            savedConcertSet?.add(currentResult.event)
+            preferences.edit().putStringSet("SAVED_CONCERTS", savedConcertSet).apply()
         }
         holder.starOn.setOnClickListener{
             holder.starOff.visibility = View.VISIBLE
             currentResult.saved=false
+            savedConcertSet?.remove(currentResult.event)
+            preferences.edit().putStringSet("SAVED_CONCERTS", savedConcertSet).apply()
         }
 
         holder.linkButton.setOnClickListener{

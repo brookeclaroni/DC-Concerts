@@ -1,5 +1,6 @@
 package com.example.dcconcerts
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.view.LayoutInflater
@@ -20,6 +21,9 @@ class ResultAdapter (private val results: List<Result>) : RecyclerView.Adapter<R
         }
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+            val preferences = holder.event.context.getSharedPreferences("dc-concerts", Context.MODE_PRIVATE)
+            val savedConcertSet = preferences.getStringSet("SAVED_CONCERTS", setOf())
+
             val currentResult = results[position]
 
             holder.event.text = currentResult.event
@@ -36,19 +40,25 @@ class ResultAdapter (private val results: List<Result>) : RecyclerView.Adapter<R
             holder.song2.text = currentResult.song2
             holder.song3.text = currentResult.song3
 
-            if(currentResult.saved)
+            if(currentResult.saved) {
                 holder.starOff.visibility = View.GONE
-            else
+            }
+            else {
                 holder.starOff.visibility = View.VISIBLE
+            }
 
             //star button functionality
             holder.starOff.setOnClickListener{
                 holder.starOff.visibility = View.GONE
                 currentResult.saved=true
+                savedConcertSet?.add(currentResult.event)
+                preferences.edit().putStringSet("SAVED_CONCERTS", savedConcertSet).apply()
             }
             holder.starOn.setOnClickListener{
                 holder.starOff.visibility = View.VISIBLE
                 currentResult.saved=false
+                savedConcertSet?.remove(currentResult.event)
+                preferences.edit().putStringSet("SAVED_CONCERTS", savedConcertSet).apply()
             }
 
             holder.linkButton.setOnClickListener{
