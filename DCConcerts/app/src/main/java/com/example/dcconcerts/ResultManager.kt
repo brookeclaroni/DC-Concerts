@@ -86,7 +86,7 @@ class ResultManager {
         artist : String
     ): MutableList<String?> {
         val token = retrieveOAuthToken(clientID, clientSecret)
-        var maxNum = 3
+        val maxNum = 3
 
         val request = Request.Builder()
             .url("https://api.spotify.com/v1/search?q=artist:$artist&type=track&limit=$maxNum&access_token=$token")
@@ -101,17 +101,9 @@ class ResultManager {
         if (!responseString.isNullOrEmpty() && response.isSuccessful) {
             val json = JSONObject(responseString)
             val tracks = json.getJSONObject("tracks")
-            val total = tracks.getString("total")
-            val totalNum = total.toInt()
-
-            if (totalNum in 0..2)
-            {
-                maxNum = totalNum
-            }
-
             val items = tracks.getJSONArray("items")
 
-            for(i in 0 until maxNum) {
+            for(i in 0 until items.length()) {
                 val item = items.getJSONObject(i)
                 list.add("${i+1}. ${item.getString("name")}")
             }
@@ -127,8 +119,10 @@ class ResultManager {
         clientID: String,
         clientSecret: String
     ): List<Result> {
+        val maxNum = 20
+
         val request = Request.Builder()
-            .url("https://app.ticketmaster.com/discovery/v2/events?apikey=$tmApiKey&classificationName=Music&stateCode=DC&sort=date,asc\n")
+            .url("https://app.ticketmaster.com/discovery/v2/events?apikey=$tmApiKey&classificationName=Music&stateCode=DC&sort=date,asc&size=$maxNum\n")
             .method("GET", null)
             .build()
 
@@ -140,7 +134,8 @@ class ResultManager {
             val json = JSONObject(responseString)
             val embedded = json.getJSONObject("_embedded")
             val events = embedded.getJSONArray("events")
-            for(i in 0..19) {
+
+            for(i in 0 until events.length()) {
                 val event = events.getJSONObject(i)
                 val dates = event.getJSONObject("dates")
                 val start = dates.getJSONObject("start")
