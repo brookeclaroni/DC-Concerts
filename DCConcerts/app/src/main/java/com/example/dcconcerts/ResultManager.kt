@@ -1,11 +1,9 @@
 package com.example.dcconcerts
 
 import android.util.Base64
-import android.provider.Settings.Global.getString
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.logging.HttpLoggingInterceptor
-import org.json.JSONArray
 import org.json.JSONObject
 import java.util.concurrent.TimeUnit
 import okhttp3.MediaType.Companion.toMediaType
@@ -28,7 +26,6 @@ class ResultManager {
         builder.writeTimeout(15, TimeUnit.SECONDS)
 
         okHttpClient = builder.build()
-
     }
 
     //code and comments adapted from lecture
@@ -89,32 +86,32 @@ class ResultManager {
         artist : String
     ): MutableList<String?> {
         val token = retrieveOAuthToken(clientID, clientSecret)
+        val maxNum = 3
+
         val request = Request.Builder()
-            .url("https://api.spotify.com/v1/search?q=artist:$artist&type=track&limit=3&access_token=$token")
+            .url("https://api.spotify.com/v1/search?q=artist:$artist&type=track&limit=$maxNum&access_token=$token")
             .method("GET", null)
             .build()
 
         val response = okHttpClient.newCall(request).execute()
 
+        val list: MutableList<String?> = mutableListOf()
+
         val responseString: String? = response.body?.string()
         if (!responseString.isNullOrEmpty() && response.isSuccessful) {
             val json = JSONObject(responseString)
             val tracks = json.getJSONObject("tracks")
-            val total = tracks.getString("total")
-            if (total=="0"||total=="1"||total=="2")
-            {
-                return mutableListOf()
-            }
             val items = tracks.getJSONArray("items")
-            val list: MutableList<String?> = mutableListOf()
-            for(i in 0..2) {
+
+            for(i in 0 until items.length()) {
                 val item = items.getJSONObject(i)
                 list.add("${i+1}. ${item.getString("name")}")
             }
+
             return list
         }
         else
-            return mutableListOf()
+            return list
     }
 
     fun retrieveEvent(
@@ -122,8 +119,10 @@ class ResultManager {
         clientID: String,
         clientSecret: String
     ): List<Result> {
+        val maxNum = 20
+
         val request = Request.Builder()
-            .url("https://app.ticketmaster.com/discovery/v2/events?apikey=$tmApiKey&classificationName=Music&stateCode=DC&sort=date,asc\n")
+            .url("https://app.ticketmaster.com/discovery/v2/events?apikey=$tmApiKey&classificationName=Music&stateCode=DC&sort=date,asc&size=$maxNum\n")
             .method("GET", null)
             .build()
 
@@ -135,39 +134,34 @@ class ResultManager {
             val json = JSONObject(responseString)
             val embedded = json.getJSONObject("_embedded")
             val events = embedded.getJSONArray("events")
-            for(i in 0..19) {
+
+            for(i in 0 until events.length()) {
                 val event = events.getJSONObject(i)
                 val dates = event.getJSONObject("dates")
                 val start = dates.getJSONObject("start")
                 val embedded2 = event.getJSONObject("_embedded")
+                val venues = embedded2.getJSONArray("venues")
+                val venue = venues.getJSONObject(0)
                 val attractions = embedded2.getJSONArray("attractions")
                 val attraction = attractions.getJSONObject(0)
 
                 val songList = retrieveSongs(clientID, clientSecret, attraction.getString("name"))
-                var song1: String?
-                var song2: String?
-                var song3: String?
-                if (songList.size ==0)
+
+                //make all list have a length of three so fill in the blanks with null
+                for(i in songList.size until 3)
                 {
-                    song1 = "No songs found on Spotify"
-                    song2 = null
-                    song3 = null
+                    songList.add(null)
                 }
-                else
-                {
-                    song1 = songList[0]
-                    song2 = songList[1]
-                    song3 = songList[2]
-                }
+
                 results.add(
                     Result(
                         event = event.getString("name"),
+                        location = venue.getString("name"),
                         artist = attraction.getString("name"),
                         date = start.getString("localDate"),
-                        song1 = song1,
-                        song2 = song2,
-                        song3 = song3,
-                        saved = false
+                        songList = songList,
+                        saved = false,
+                        link = event.getString("url")
                     )
                 )
             }
@@ -175,14 +169,6 @@ class ResultManager {
             return results
         }
         else
-            return listOf (Result(
-                event = "Error in retrieving events",
-                artist = "",
-                date = "",
-                song1 = null,
-                song2 = null,
-                song3 = null,
-                saved = false
-            ))
+            return listOf()
     }
 }
