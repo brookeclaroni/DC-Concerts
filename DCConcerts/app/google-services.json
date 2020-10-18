@@ -34,6 +34,35 @@
           ]
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:47656541562:android:9a7f4b2b32be8a85180ac3",
+        "android_client_info": {
+          "package_name": "com.gwu.dcconcerts"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "47656541562-p6mvmgao7jfev47f8h3a6mh80maaa943.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCsy6uvKwmuV9X3nwFGtlp_0FxnVdfc_Io"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "47656541562-p6mvmgao7jfev47f8h3a6mh80maaa943.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
     }
   ],
   "configuration_version": "1"
